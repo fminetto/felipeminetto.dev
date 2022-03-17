@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { IThemeProps } from '../interfaces/theme'
-import DefaultTheme from '../themes/default'
+import { IThemeProps } from 'interfaces/theme'
+import DefaultTheme from 'themes/default'
 
 const GlobalStyle = createGlobalStyle<IThemeProps>`
 body {
@@ -10,7 +10,7 @@ body {
 }`
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <html lang='pt-BR'>
+  return <>
     <Head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,5 +25,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <Component {...pageProps} />
     </ThemeProvider>
-  </html>
+  </>
 }

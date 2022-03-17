@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { ITechnology } from "../interfaces/technology";
+import { ITechnology } from "interfaces/technology";
 
 const client = new ApolloClient({
     uri: process.env.GRAPHQL_ENDPOINT,
@@ -9,7 +9,7 @@ const client = new ApolloClient({
     },
 });
 
-export async function listTechnologies(): Promise<ITechnology> {
+export async function listTechnologies(): Promise<Array<ITechnology>> {
     const { data } = await client.query({
         query: gql`
         query{
