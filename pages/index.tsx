@@ -1,24 +1,20 @@
-import CardComponent from 'components/Card';
+import CardContainer from 'components/CardContainer';
 import { IHomeProps } from 'interfaces/pageprops';
-import type { NextPage, NextPageContext } from 'next'
-import { useCallback } from 'react';
-import { listTechnologies } from 'utils/apollo'
+import type { NextPage, NextPageContext } from 'next';
+import { listTechnologies } from 'utils/apollo';
 
-const Home: NextPage<IHomeProps> = (props:IHomeProps) => {
-  const renderCards = useCallback(() => {
-    return props?.technologies.map(({ icon, title }, id) => {
-      return <CardComponent key={id} icon={icon} title={title} />
-    })
-  }, [props?.technologies]);
-
+const Home: NextPage<IHomeProps> = (props: IHomeProps) => {
   return (
     <>
-      {renderCards()}
+      <CardContainer technologies={props?.technologies} />
+      <a style={{color:"white"}} href="https://react-icons.github.io/react-icons/" title="card icons">Card icons are provided by React Icons</a>
+      <br/>
+      <a style={{color:"white"}} href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Freepik - Flaticon</a>
     </>
   )
 }
 
-export async function getStaticProps(context: NextPageContext): Promise<{props:IHomeProps}> {
+export async function getStaticProps(context: NextPageContext): Promise<{ props: IHomeProps }> {
   const technologies = await listTechnologies();
   return {
     props: {

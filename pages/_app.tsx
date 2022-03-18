@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <meta name="description" content="A simple backend developer's website" />
       <meta name="keywords" content="software, development, blog, react, typescript, javascript, aws" />
       <meta name="author" content="Felipe Minetto" />
+      <link rel="manifest" href="manifest.json" />
       <title>Felipe Minetto</title>
     </Head>
     <ThemeProvider theme={DefaultTheme}>
