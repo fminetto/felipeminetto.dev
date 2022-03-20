@@ -1,10 +1,10 @@
+import Developer from 'assets/developer.svg';
 import CardList from 'components/CardList';
 import Menu from 'components/Menu';
 import { ITechnology } from 'interfaces/technology';
 import type { NextPage, NextPageContext } from 'next';
+import { useEffect, useState } from 'react';
 import { listTechnologies } from 'utils/apollo';
-import Developer from 'assets/developer.svg';
-import { useState } from 'react';
 
 interface IHomeProps {
   technologies: Array<ITechnology>;
@@ -17,19 +17,25 @@ interface IHomeProps {
 
 const Home: NextPage<IHomeProps> = (props: IHomeProps) => {
   const [isWindowOpen, setIsOpenWindow] = useState<boolean>(false);
+  useEffect(() => {
+    if(navigator.serviceWorker){
+      navigator.serviceWorker.register('/sw.js');
+    }
+  }, [])
+
   return (
     <>
       <Developer style={{
-        position:'fixed',
-        top:0,
-        left:0,
-        margin:0,
-        padding:0,
-        width:'100%',
-        height:'100%',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        margin: 0,
+        padding: 0,
+        width: '100%',
+        height: '100%',
       }} viewBox="0 0 786.81995 572.25773" />
-      <Menu items={props.links} setOpenWindow={setIsOpenWindow}/>
-      <CardList items={props.technologies} isOpened={isWindowOpen} setIsOpened={setIsOpenWindow}/>
+      <Menu items={props.links} setOpenWindow={setIsOpenWindow} />
+      <CardList items={props.technologies} isOpened={isWindowOpen} setIsOpened={setIsOpenWindow} />
       {/*  
       <a style={{color:"white"}} href="https://react-icons.github.io/react-icons/" title="card icons">Card icons are provided by React Icons</a>
       <br/>
