@@ -5,7 +5,7 @@ const client = new ApolloClient({
     uri: process.env.GRAPHQL_ENDPOINT,
     cache: new InMemoryCache(),
     headers: {
-        Authorization: process.env.GRAPHQL_AUTH_TOKEN as string
+        Authorization: `Bearer ${process.env.GRAPHQL_AUTH_TOKEN}`
     },
 });
 
@@ -21,5 +21,11 @@ export async function listTechnologies(): Promise<Array<ITechnology>> {
             }
         }`
     });
-    return data.listTechnologies.data;
+    let result: Array<ITechnology> = Array.from(data.listTechnologies.data);
+    return result.sort((oldItem, newItem) => {
+        if(oldItem.title < newItem.title) return -1;
+        if(oldItem.title > newItem.title) return 1;
+        return 0
+    })
+
 }

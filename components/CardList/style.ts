@@ -23,3 +23,9 @@ export const Card = styled.div<IThemeProps>`
         width:5vmax;
     }
 `;
+
+export const Container = styled.div`
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+`
