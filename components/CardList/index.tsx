@@ -1,6 +1,8 @@
-import { useCallback } from "react";
-import { SiAmazonaws, SiCplusplus, SiCsharp, SiDart, SiDocker, SiElectron,SiFirebase, SiFlutter, SiGo, SiKubernetes, SiLinux, SiMicrosoftazure, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiPwa, SiPython, SiReact, SiVercel } from 'react-icons/si';
+import { Dispatch, SetStateAction, useCallback } from "react";
+import { SiAmazonaws, SiCplusplus, SiCsharp, SiDart, SiDocker, SiElectron, SiFirebase, SiFlutter, SiGo, SiKubernetes, SiLinux, SiMicrosoftazure, SiMongodb, SiMysql, SiNextdotjs, SiNodedotjs, SiPwa, SiPython, SiReact, SiVercel } from 'react-icons/si';
+import { IoClose } from 'react-icons/io5'
 import { Card, Container } from './style';
+import { ThemeConsumer } from "styled-components";
 
 const icons = {
     SiGo,
@@ -27,9 +29,11 @@ const icons = {
 
 interface ICardProps {
     items: Array<{ icon: string, title: string }>;
+    isOpened?: boolean;
+    setIsOpened: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function CardList({ items }: ICardProps) {
+export default function CardList({ items, isOpened, setIsOpened }: ICardProps) {
     const renderItems = useCallback(() => {
         return items.map(({ icon, title }, index) => (
             <Card key={index} title={title}>
@@ -38,7 +42,26 @@ export default function CardList({ items }: ICardProps) {
         ));
     }, [items]);
 
-    return <Container>
-        {renderItems()}
-    </Container>
+    return <ThemeConsumer>
+        {theme => (
+            <Container isOpened={isOpened}>
+                <IoClose
+                    onClick={() => {
+                        setIsOpened(false)
+                    }}
+                    style={{
+                        position: 'absolute',
+                        display: 'flex',
+                        right: '2vmax',
+                        top: '2vmax',
+                        margin: '0',
+                        padding: '0',
+                        color: theme.colors.secondary,
+                        cursor: 'pointer',
+                        fontSize: '2em',
+                    }} />
+                {renderItems()}
+            </Container>
+        )}
+    </ThemeConsumer>
 }
